@@ -2,6 +2,7 @@ const { createServer } = require('http')
 const { parse } = require('url')
 const next = require('next')
 const { Server } = require('socket.io')
+const protobuf = require('./src/protobuf/simple-demo')
 
 const dev = process.env.NODE_ENV !== 'production'
 const hostname = 'localhost'
@@ -30,6 +31,9 @@ const app = next({ dev, hostname, port })
 const handle = app.getRequestHandler()
 
 app.prepare().then(() => {
+  // 🚀 Khởi tạo Mock Protobuf (JSON fallback mode)
+  const protobufReady = protobuf.initializeProtobuf()
+  console.log('✅ Server ready with JSON fallback mode!')
   const httpServer = createServer(async (req, res) => {
     try {
       const parsedUrl = parse(req.url, true)
@@ -61,12 +65,21 @@ app.prepare().then(() => {
       socket.emit('pong')
     })
 
-    // Gửi seat map data cho client mới
+    // 📦 Gửi seat map data cho client mới (tạm thời dùng JSON)
     socket.emit('seatMap:data', mockSeatMap)
+    console.log('📦 Sent seat map data via JSON (fallback mode)')
+    
+    // Xử lý request JSON data từ client
+    socket.on('request-json-data', () => {
+      socket.emit('seatMap:data', mockSeatMap)
+      console.log('📦 Sent seat map data via JSON (client requested)')
+    })
 
-    // Xử lý seat selection
+    // 📦 Xử lý seat selection (tạm thời chỉ hỗ trợ JSON)
     socket.on('seat:select', (data) => {
       const { seatId, userId, userName } = data
+      console.log('📦 Received JSON select request')
+      
       const seat = mockSeatMap.seats.find(s => s.id === seatId)
       
       if (seat && seat.status === 'available') {
@@ -77,8 +90,10 @@ app.prepare().then(() => {
         
         seatReservations.set(seatId, { userId, userName, timestamp: Date.now() })
         
-        // Broadcast đến tất cả clients
+        // 📦 Broadcast seat update (JSON mode)
         io.emit('seat:updated', seat)
+        console.log(`📦 Sent seat update via JSON`)
+        
         console.log(`🎫 Seat ${seatId} selected by ${userName}`)
       } else {
         socket.emit('seat:error', { message: 'Seat not available' })

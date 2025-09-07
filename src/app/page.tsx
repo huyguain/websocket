@@ -7,6 +7,7 @@ import UserLogin from '@/components/UserLogin'
 import ConnectionStatus from '@/components/ConnectionStatus'
 import ReconnectInfo from '@/components/ReconnectInfo'
 import ReconnectTest from '@/components/ReconnectTest'
+import ProtobufDemo from '@/components/ProtobufDemo'
 
 export default function Home() {
   return (
@@ -45,6 +46,7 @@ export default function Home() {
               <UserLogin />
               <BookingPanel />
               <ReconnectTest />
+              <ProtobufDemo />
             </div>
           </div>
 

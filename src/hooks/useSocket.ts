@@ -10,6 +10,13 @@ import {
 } from '@/store/seatMapSlice'
 import type { Seat, SeatMap } from '@/store/seatMapSlice'
 
+// 📦 Simple Protobuf detection (fallback to JSON for now)
+const isProtobufData = (data: any): boolean => {
+  return data instanceof ArrayBuffer || 
+         (typeof data === 'object' && data.constructor === Uint8Array) ||
+         Buffer.isBuffer(data)
+}
+
 interface ReconnectConfig {
   maxAttempts: number
   baseDelay: number
@@ -152,16 +159,39 @@ export const useSocket = (): UseSocketReturn => {
         console.log('🏓 Received pong from server')
       })
 
-      // Seat map data
-      socket.on('seatMap:data', (seatMap: SeatMap) => {
-        console.log('📊 Received seat map data')
-        dispatch(setSeatMap(seatMap))
+      // 📦 Seat map data (hỗ trợ cả Protobuf và JSON)
+      socket.on('seatMap:data', (data) => {
+        try {
+          // Kiểm tra xem data có phải là binary protobuf không
+          if (isProtobufData(data)) {
+            console.log('📦 Received protobuf data (binary), falling back to JSON mode')
+            // Tạm thời fallback về JSON mode
+            socket.emit('request-json-data')
+          } else {
+            // JSON format
+            console.log('📦 Received seat map via JSON')
+            dispatch(setSeatMap(data))
+          }
+        } catch (error) {
+          console.error('Error processing seat map data:', error)
+        }
       })
 
-      // Seat updates
-      socket.on('seat:updated', (seat: Seat) => {
-        console.log('🔄 Seat updated:', seat.id, seat.status)
-        dispatch(updateSeat(seat))
+      // 📦 Seat updates (hỗ trợ cả Protobuf và JSON)
+      socket.on('seat:updated', (data) => {
+        try {
+          // Kiểm tra xem data có phải là binary protobuf không
+          if (isProtobufData(data)) {
+            console.log('📦 Received protobuf seat update (binary), falling back to JSON mode')
+            // Tạm thời fallback về JSON mode
+          } else {
+            // JSON format
+            console.log('📦 Received seat update via JSON:', data.id, data.status)
+            dispatch(updateSeat(data))
+          }
+        } catch (error) {
+          console.error('Error processing seat update:', error)
+        }
       })
 
       // Seat booking confirmation
@@ -207,11 +237,13 @@ export const useSocket = (): UseSocketReturn => {
   const selectSeat = useCallback((seatId: string) => {
     if (!user || !isConnectedState || !socketRef.current) return
     
+    // 📦 Gửi request bằng JSON (tạm thời)
     socketRef.current.emit('seat:select', {
       seatId,
       userId: user.id,
       userName: user.name,
     })
+    console.log('📦 Sent select request via JSON')
   }, [user, isConnectedState])
 
   const deselectSeat = useCallback((seatId: string) => {
