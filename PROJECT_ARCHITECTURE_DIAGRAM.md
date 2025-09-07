@@ -57,13 +57,13 @@ graph TB
         JJ --> LL[Graceful Degradation]
     end
     
-    style A fill:#e1f5fe
-    style G fill:#f3e5f5
-    style Q fill:#fff3e0
-    style W fill:#e8f5e8
-    style DD fill:#fff8e1
-    style FF fill:#fce4ec
-    style JJ fill:#f1f8e9
+    style A fill:#87CEEB,stroke:#4682B4,stroke-width:3px,color:#000
+    style G fill:#98FB98,stroke:#32CD32,stroke-width:3px,color:#000
+    style Q fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style W fill:#F0E68C,stroke:#DAA520,stroke-width:3px,color:#000
+    style DD fill:#FFE4B5,stroke:#FF8C00,stroke-width:3px,color:#000
+    style FF fill:#DDA0DD,stroke:#9370DB,stroke-width:3px,color:#000
+    style JJ fill:#F5DEB3,stroke:#CD853F,stroke-width:3px,color:#000
 ```
 
 ## 🔄 Luồng dữ liệu Real-time
@@ -165,10 +165,10 @@ graph TD
         JJ --> T
     end
     
-    style A fill:#e3f2fd
-    style T fill:#f3e5f5
-    style EE fill:#fff3e0
-    style II fill:#e8f5e8
+    style A fill:#87CEEB,stroke:#4682B4,stroke-width:3px,color:#000
+    style T fill:#98FB98,stroke:#32CD32,stroke-width:3px,color:#000
+    style EE fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style II fill:#F0E68C,stroke:#DAA520,stroke-width:3px,color:#000
 ```
 
 ## ⚡ Performance Optimization Strategy
@@ -200,11 +200,11 @@ graph LR
         W[WebSocket Latency] --> X[< 100ms]
     end
     
-    style A fill:#e8f5e8
-    style D fill:#fff3e0
-    style H fill:#e3f2fd
-    style K fill:#f3e5f5
-    style N fill:#fce4ec
+    style A fill:#98FB98,stroke:#32CD32,stroke-width:3px,color:#000
+    style D fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style H fill:#87CEEB,stroke:#4682B4,stroke-width:3px,color:#000
+    style K fill:#DDA0DD,stroke:#9370DB,stroke-width:3px,color:#000
+    style N fill:#F0E68C,stroke:#DAA520,stroke-width:3px,color:#000
 ```
 
 ## 🔧 Tech Stack Architecture
@@ -250,10 +250,10 @@ graph TB
         FF --> GG
     end
     
-    style A fill:#e1f5fe
-    style P fill:#fff3e0
-    style W fill:#f3e5f5
-    style CC fill:#e8f5e8
+    style A fill:#87CEEB,stroke:#4682B4,stroke-width:3px,color:#000
+    style P fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style W fill:#98FB98,stroke:#32CD32,stroke-width:3px,color:#000
+    style CC fill:#F0E68C,stroke:#DAA520,stroke-width:3px,color:#000
 ```
 
 ## 🎯 Key Features & Capabilities
@@ -305,9 +305,9 @@ graph LR
         S[Client-side Caching] --> T[Reduce Server Load]
     end
     
-    style A fill:#e8f5e8
-    style G fill:#fff3e0
-    style O fill:#e3f2fd
+    style A fill:#98FB98,stroke:#32CD32,stroke-width:3px,color:#000
+    style G fill:#FFB6C1,stroke:#FF69B4,stroke-width:3px,color:#000
+    style O fill:#87CEEB,stroke:#4682B4,stroke-width:3px,color:#000
 ```
 
 ## 🎤 Interview Talking Points
