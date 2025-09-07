@@ -56,6 +56,11 @@ app.prepare().then(() => {
   io.on('connection', (socket) => {
     console.log('✅ Client connected:', socket.id)
 
+    // Ping/Pong mechanism để kiểm tra kết nối
+    socket.on('ping', () => {
+      socket.emit('pong')
+    })
+
     // Gửi seat map data cho client mới
     socket.emit('seatMap:data', mockSeatMap)
 

@@ -29,7 +29,7 @@ export interface SeatMapState {
   user: User | null
   isLoading: boolean
   error: string | null
-  connectionStatus: 'connecting' | 'connected' | 'disconnected' | 'error'
+  connectionStatus: 'connecting' | 'connected' | 'disconnected' | 'error' | 'reconnecting'
 }
 
 const initialState: SeatMapState = {

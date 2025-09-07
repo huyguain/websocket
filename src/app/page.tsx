@@ -4,6 +4,9 @@ import React from 'react'
 import SeatMap from '@/components/SeatMap'
 import BookingPanel from '@/components/BookingPanel'
 import UserLogin from '@/components/UserLogin'
+import ConnectionStatus from '@/components/ConnectionStatus'
+import ReconnectInfo from '@/components/ReconnectInfo'
+import ReconnectTest from '@/components/ReconnectTest'
 
 export default function Home() {
   return (
@@ -20,6 +23,16 @@ export default function Home() {
             </p>
           </div>
 
+          {/* Connection Status */}
+          <div className="mb-6">
+            <ConnectionStatus />
+          </div>
+
+          {/* Reconnect Info */}
+          <div className="mb-6">
+            <ReconnectInfo />
+          </div>
+
           {/* Main Content */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Seat Map */}
@@ -31,6 +44,7 @@ export default function Home() {
             <div className="space-y-6">
               <UserLogin />
               <BookingPanel />
+              <ReconnectTest />
             </div>
           </div>
 
